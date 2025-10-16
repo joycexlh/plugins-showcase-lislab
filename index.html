@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阿哩的插件实验室 - Chrome扩展精选</title>
+    <meta name="description" content="阿哩的插件实验室，专注开发实用的Chrome扩展，提升你的浏览器体验">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 极简导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7 1.49 0 2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z"/>
+                </svg>
+                <h1>插件实验室</h1>
+            </div>
+            <div class="nav-actions">
+                <a href="https://your-website.com" class="nav-link" target="_blank">个人网站</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 插件展示部分 -->
+    <section id="plugins" class="plugins">
+        <div class="container">
+            <!-- 顶部控制区 -->
+            <div class="controls-section">
+                <!-- 分类筛选 -->
+                <div class="category-nav">
+                    <button class="category-btn active" data-category="all">全部</button>
+                    <button class="category-btn" data-category="productivity">效率工具</button>
+                    <button class="category-btn" data-category="utility">开发工具</button>
+                    <button class="category-btn" data-category="creative">创意工具</button>
+                </div>
+
+                <!-- 搜索框 -->
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="搜索插件..." class="search-input">
+                </div>
+            </div>
+
+            <!-- 插件网格 -->
+            <div class="plugins-grid" id="pluginsGrid">
+                <!-- 插件卡片将通过JS动态加载 -->
+            </div>
+
+            <!-- 空状态 -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <div class="empty-icon">🔍</div>
+                <h3>没有找到插件</h3>
+                <p>请尝试其他关键词或查看其他分类</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系信息 -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="contact-simple">
+                <p>欢迎来到阿哩的插件实验室，这里有一些实用小工具，分享给需要的你。</p>
+                <div class="contact-info">
+                    <span>微信：872779958</span>
+                    <span>|</span>
+                    <a href="https://your-website.com" target="_blank">个人网站</a>
+                    <span>|</span>
+                    <a href="https://t.zsxq.com/MlnIL" target="_blank">更多链接➡️</a>
+                </div>
+                <div class="footer-copyright">
+                    <p>&copy; 2025 阿哩. 保留所有权利.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

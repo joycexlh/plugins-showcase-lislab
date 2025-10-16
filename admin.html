@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>插件作品管理后台</title>
+    <link rel="stylesheet" href="admin-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- 头部 -->
+        <header class="admin-header">
+            <div class="header-content">
+                <h1>插件作品管理</h1>
+                <div class="header-actions">
+                    <a href="index.html" target="_blank" class="btn btn-outline">预览页面</a>
+                    <button onclick="saveAllData()" class="btn btn-primary">保存设置</button>
+                    <a href="/cdn-cgi/access/logout" class="btn btn-secondary">退出登录</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- 主内容区 -->
+        <main class="admin-main">
+            <!-- 添加新插件 -->
+            <section class="admin-section">
+                <h2>添加新插件</h2>
+                <div class="plugin-form" id="pluginForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pluginName">插件名称</label>
+                            <input type="text" id="pluginName" placeholder="输入插件名称">
+                        </div>
+                        <div class="form-group">
+                            <label for="pluginIcon">图标</label>
+                            <input type="text" id="pluginIcon" placeholder="输入emoji或图标" maxlength="2">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pluginDescription">插件描述</label>
+                        <textarea id="pluginDescription" placeholder="简短描述插件功能" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pluginCategory">分类</label>
+                            <select id="pluginCategory">
+                                <option value="productivity">效率工具</option>
+                                <option value="utility">开发工具</option>
+                                <option value="creative">创意工具</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pluginUrl">Chrome商店链接</label>
+                            <input type="url" id="pluginUrl" placeholder="https://chrome.google.com/webstore/...">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pluginTags">标签</label>
+                        <input type="text" id="pluginTags" placeholder="用逗号分隔，如：工具,效率,浏览器">
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="pluginFeatured"> 设为精选（首屏展示）
+                        </label>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" onclick="addPlugin()" class="btn btn-primary">添加插件</button>
+                        <button type="button" onclick="clearForm()" class="btn btn-secondary">清空表单</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 插件列表管理 -->
+            <section class="admin-section">
+                <div class="section-header">
+                    <h2>插件列表管理</h2>
+                    <div class="section-actions">
+                        <button onclick="exportData()" class="btn btn-outline">导出数据</button>
+                        <button onclick="document.getElementById('importFile').click()" class="btn btn-outline">导入数据</button>
+                        <input type="file" id="importFile" style="display: none;" accept=".json" onchange="importData(event)">
+                    </div>
+                </div>
+
+                <!-- 搜索栏 -->
+                <div class="search-bar">
+                    <input type="text" id="pluginSearch" placeholder="搜索插件名称、描述或标签..." class="search-input">
+                    <button onclick="clearSearch()" class="btn btn-outline btn-small">清除</button>
+                </div>
+
+                <div class="plugins-list" id="pluginsList">
+                    <!-- 插件列表将通过JS动态生成 -->
+                </div>
+
+                <!-- 分页控制 -->
+                <div class="pagination" id="pagination">
+                    <!-- 分页按钮将通过JS动态生成 -->
+                </div>
+            </section>
+
+            <!-- 首屏展示设置 -->
+            <section class="admin-section">
+                <h2>首屏展示设置</h2>
+                <div class="featured-settings">
+                    <p>从精选插件中选择需要在首屏展示的插件（拖拽排序），其他精选插件会显示在后面</p>
+
+                    <!-- 可选精选插件列表 -->
+                    <div style="margin-bottom: 1.5rem;">
+                        <h3 style="font-size: 1rem; color: #374151; margin-bottom: 0.75rem;">可选精选插件（点击添加到首屏）</h3>
+                        <div class="available-featured" id="availableFeatured">
+                            <!-- 可选的精选插件 -->
+                        </div>
+                    </div>
+
+                    <!-- 首屏展示列表 -->
+                    <div>
+                        <h3 style="font-size: 1rem; color: #374151; margin-bottom: 0.75rem;">首屏展示插件（拖拽排序）</h3>
+                        <div class="featured-list" id="featuredList">
+                            <!-- 首屏展示插件列表 -->
+                        </div>
+                    </div>
+
+                    <div class="featured-actions">
+                        <button onclick="updateFeaturedOrder()" class="btn btn-primary">更新排序</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="admin-script.js"></script>
+</body>
+</html>

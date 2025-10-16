@@ -1,0 +1,6 @@
+# 保护 admin 路径，需要通过 Cloudflare Access 认证
+/admin.html
+  X-Robots-Tag: noindex
+
+/admin-*
+  X-Robots-Tag: noindex

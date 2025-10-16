@@ -1,0 +1,2 @@
+# 重定向 /admin 到 /admin.html
+/admin  /admin.html  301
