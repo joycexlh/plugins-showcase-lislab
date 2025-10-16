@@ -270,6 +270,80 @@ A: 将CSS样式添加作用域前缀，避免样式冲突。
 
 ## 🔄 更新日志
 
+### v3.1.0 (2025-10-16) - Cloudflare Pages 部署和安全加固
+
+#### 🚀 部署方式升级
+- **从直接上传迁移到 Git 部署**：
+  - 创建 GitHub 仓库 `plugins-showcase-lislab`
+  - 配置 Cloudflare Pages 自动部署
+  - 代码版本控制和自动化部署流程
+  - 删除旧的直接上传项目，重建同名 Git 连接项目
+
+#### 💾 数据存储重构
+- **从 localStorage 迁移到 Cloudflare KV**：
+  - API 接口：`/api/plugins` (GET/POST)
+  - 使用 Cloudflare Workers Functions 处理数据
+  - KV namespace 绑定：`PLUGINS_KV`
+  - 云端数据存储，跨设备同步
+
+#### 🔐 安全访问控制
+- **Cloudflare Access 集成**：
+  - 保护路径：`/admin.html` 和 `/admin`
+  - 使用邮箱验证码 (One-Time PIN) 登录
+  - Policy 配置：仅允许管理员邮箱访问
+  - 共享 Policy：多个应用使用同一访问策略
+
+- **Access 规则优化**：
+  - 修复：移除 `/admin-*` 通配符保护
+  - 原因：避免拦截 CSS/JS 静态资源导致页面无样式
+  - 正确配置：只保护 HTML 入口，不保护静态资源
+  - 安全性：HTML 入口受保护，静态资源无敏感数据
+
+#### ✨ 功能优化
+- **添加退出登录按钮**：
+  - 位置：后台管理页面头部
+  - 链接：`/cdn-cgi/access/logout`
+  - 功能：清除 Cloudflare Access 会话，重新要求登录
+
+#### 🐛 问题修复
+- **重定向循环问题**：
+  - 原因：`_redirects` 文件配置导致无限重定向
+  - 解决：删除 `_redirects` 文件
+  - 影响：`/admin` 路径现通过 Access 应用直接保护
+
+#### 📦 项目结构更新
+```
+plugins-showcase/
+├── functions/
+│   └── api/
+│       └── plugins.js      # Cloudflare Workers Function (KV 数据操作)
+├── _headers                # 阻止搜索引擎索引后台页面
+├── .gitignore              # Git 忽略配置
+├── index.html              # 前台展示页面
+├── admin.html              # 后台管理页面（已添加退出登录按钮）
+├── style.css               # 前台样式
+├── admin-style.css         # 后台样式
+├── script.js               # 前台脚本
+├── admin-script.js         # 后台脚本（已适配 API）
+├── DEPLOYMENT.md           # 部署文档
+└── development.md          # 开发文档（本文件）
+```
+
+#### 🔧 技术栈变更
+- **新增**：Cloudflare Pages + Workers + KV
+- **新增**：Cloudflare Access (Zero Trust)
+- **新增**：Git + GitHub 自动部署
+- **移除**：localStorage 本地存储
+
+#### 📝 部署配置
+- **域名**：`lislab-extensions.pages.dev`
+- **构建配置**：
+  - Framework preset: None
+  - Build command: 留空
+  - Build output directory: `/`
+- **环境绑定**：
+  - KV namespace: `PLUGINS_KV` → `PLUGINS_KV`
+
 ### v3.0.0 (2025-09-30) - 后台管理系统升级 & 首屏控制优化
 #### 🎯 首屏展示逻辑重构
 - **精选 + 首屏双层机制**：
